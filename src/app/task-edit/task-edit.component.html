@@ -1,0 +1,93 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="ngTaskEditForm" novalidate>
+      <h2 class="text-center">Edit Task</h2>
+      <div class="form-group">
+        <label class="col-md-4">Task Title:</label>
+        <input type="text" class="form-control" formControlName="TaskTitle" #TaskTitle [(ngModel)]="task.TaskTitle">
+        <div *ngIf="ngTaskEditForm.controls['TaskTitle'].invalid &&
+          (ngTaskEditForm.controls['TaskTitle'].dirty || ngTaskEditForm.controls['TaskTitle'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="ngTaskEditForm.controls['TaskTitle'].errors.required">
+            Task Title is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Start Date:</label>
+        <input type="date" class="form-control" formControlName="TaskDateStarted" #TaskDateStarted
+               [value]="task.TaskDateStarted | date:'yyyy-MM-dd'" (input)="task.TaskDateStarted=parseDate($event.target.value)">
+        <div *ngIf="ngTaskEditForm.controls['TaskDateStarted'].invalid &&
+          (ngTaskEditForm.controls['TaskDateStarted'].dirty || ngTaskEditForm.controls['TaskDateStarted'].touched)"
+             class="alert alert-danger">
+          Date Started is required.
+        </div>
+        <div *ngIf="ngTaskEditForm.controls['TaskDateStarted'].errors.required"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Status:</label>
+        <select name="status" class="form-control" formControlName="TaskStatus" #TaskStatus [(ngModel)]="task.TaskStatus">
+          <option value="None">None</option>
+          <option value="Started">Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <div *ngIf="ngTaskEditForm.controls['TaskStatus'].invalid &&
+          (ngTaskEditForm.controls['TaskStatus'].dirty || ngTaskEditForm.controls['TaskStatus'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="ngTaskEditForm.controls['TaskStatus'].errors.required">
+            Task Status is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Priority:</label>
+        <select name="priority" class="form-control" formControlName="TaskPriority" #TaskPriority [(ngModel)]="task.TaskPriority">
+          <option value="None">None</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <div *ngIf="ngTaskEditForm.controls['TaskPriority'].invalid &&
+          (ngTaskEditForm.controls['TaskPriority'].dirty || ngTaskEditForm.controls['TaskPriority'].touched)"
+               class="alert alert-danger">
+          <div *ngIf="ngTaskEditForm.controls['TaskPriority'].errors.required">
+            Task Priority is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Expected Time (# of hours):</label>
+        <input type="number" maxlength="3" class="form-control" formControlName="TaskExpectedTime" #TaskExpectedTime [(ngModel)]="task.TaskExpectedTime" />
+        <div *ngIf="ngTaskEditForm.controls['TaskExpectedTime'].invalid &&
+          (ngTaskEditForm.controls['TaskExpectedTime'].dirty || ngTaskEditForm.controls['TaskExpectedTime'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="ngTaskEditForm.controls['TaskExpectedTime'].errors.required">
+            Expected Time is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Duration (# of hours):</label>
+        <input type="number" maxlength="3" class="form-control" formControlName="TaskDuration" #TaskDuration [(ngModel)]="task.TaskDuration" />
+        <div *ngIf="ngTaskEditForm.controls['TaskDuration'].invalid &&
+          (ngTaskEditForm.controls['TaskDuration'].dirty || ngTaskEditForm.controls['TaskDuration'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="ngTaskEditForm.controls['TaskDuration'].errors.required">
+            Task Duration is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button (click)="updateTask(TaskTitle.value, TaskStatus.value, TaskDateStarted.value, TaskExpectedTime.value,
+                  TaskDuration.value, TaskPriority.value)" type="submit" class="btn btn-primary">Update Task</button>
+      </div>
+    </form>
+  </div>
+</div>
