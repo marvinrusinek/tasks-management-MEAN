@@ -16,8 +16,8 @@ th, td {
   margin-top: 2em;
 }
 
-#search-form input {
-  width: 200px;
+#search-form > input {
+  width: 200px !important;
   display: inline;
 }
 

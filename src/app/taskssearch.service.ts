@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import {Observable, of, BehaviorSubject} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import Task from './Task';
@@ -16,6 +16,20 @@ export class TasksSearchService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+  /* private results = new BehaviorSubject([]);
+
+  public getResults$() {
+    return this.results.asObservable();
+  }
+
+  public getSuggestion(name: string) {
+    this.http.get(this.tasksUrl + 'task/' + name)
+      .subscribe(
+        (response:any[]) => this.results.next(response),
+        this.handleError
+      );
+  } */
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 

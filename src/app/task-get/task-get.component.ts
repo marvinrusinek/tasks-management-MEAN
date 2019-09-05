@@ -20,6 +20,10 @@ export class TaskGetComponent implements OnInit {
   tasks$: Observable<Task[]>;
   private searchTerms = new Subject<string>();
 
+  /* public getSuggestion(name){
+    this.tasksSearchService.getSuggestion(name);
+  } */
+
   toggleSortOrder(column: string) {
     if (column === this.currentSortColumn) {
       this.tasks.reverse();
@@ -40,9 +44,18 @@ export class TaskGetComponent implements OnInit {
     }
   }
 
-  constructor(private tasksService: TasksService, private tasksSearchService: TasksSearchService) {}
+  public results = null;
+  public resultList: any[];
+  constructor(private tasksService: TasksService, private tasksSearchService: TasksSearchService) {
+    /* tasksSearchService.getResults$()
+      .subscribe(resultList => {
+        this.results = resultList;
+    }); */
+  }
 
-  // Push a search term into the observable stram.
+
+
+  // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }

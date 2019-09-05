@@ -1,6 +1,14 @@
 <div class="container">
-  <h4>Task Search:</h4>
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  <form role="form" id="search-form">
+    <div class="input-group">
+      <h4>Task Search:</h4>
+      <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search&hellip;" #searchBox id="search-box"
+             (input)="search(searchBox.value)">
+      <span class="input-group-append">
+        <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
+      </span>
+    </div>
+  </form>
 
   <div id="search-results">
     <h2 class="text-center">My Tasks List</h2>
@@ -13,7 +21,7 @@
             <th><a (click)="toggleSortOrder('priority')">Priority {{arrow('priority')}}</a></th>
             <th><a (click)="toggleSortOrder('expTime')">Expected Time {{arrow('expTime')}}</a></th>
             <th><a (click)="toggleSortOrder('duration')">Duration {{arrow('duration')}}</a></th>
-            <th><a (click)="toggleSortOrder('percentCompleted')">% Completed {{arrow('duration')}}</a></th>
+            <th><a (click)="toggleSortOrder('percentCompleted')">% Completed {{arrow('percentCompleted')}}</a></th>
             <th>Progress</th>
             <th colspan="2">More Actions</th>
           </tr>
@@ -28,7 +36,7 @@
             <td>{{ task.TaskExpectedTime }}</td>
             <td>{{ task.TaskDuration }}</td>
             <td>
-              <span>{{(100*task.TaskDuration/task.TaskExpectedTime).toFixed(0)}}</span>
+              <span>{{(100*task.TaskDuration/task.TaskExpectedTime).toFixed(0)}}%</span>
             </td>
             <td>
               <ngb-progressbar type="info" [striped]="true" [value]="(100*task.TaskDuration/task.TaskExpectedTime).toFixed(0)">
