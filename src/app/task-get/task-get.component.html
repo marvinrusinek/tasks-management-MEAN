@@ -1,36 +1,43 @@
-<input #searchBox id="search-box" (input)="search(searchBox.value)" />
+<div class="container">
+  <h4>Task Search:</h4>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
   <div id="search-results">
-  <h2 class="text-center">My Tasks</h2>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th><a (click)="toggleSortOrder('title')">Task Title {{arrow('title')}}</a></th>
-        <th><a (click)="toggleSortOrder('dateStarted')">Date Started {{arrow('dateStarted')}}</a></th>
-        <th><a (click)="toggleSortOrder('status')">Task Status {{arrow('status')}}</a></th>
-        <th><a (click)="toggleSortOrder('priority')">Priority {{arrow('priority')}}</a></th>
-        <th><a (click)="toggleSortOrder('expTime')">Expected Time {{arrow('expTime')}}</a></th>
-        <th><a (click)="toggleSortOrder('duration')">Duration {{arrow('duration')}}</a></th>
-        <th>Progress</th>
-        <th colspan="2">More Actions</th>
-      </tr>
-    </thead>
+    <h2 class="text-center">My Tasks List</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><a (click)="toggleSortOrder('name')">Task Name {{arrow('name')}}</a></th>
+            <th><a (click)="toggleSortOrder('startDate')">Start Date {{arrow('startDate')}}</a></th>
+            <th><a (click)="toggleSortOrder('status')">Task Status {{arrow('status')}}</a></th>
+            <th><a (click)="toggleSortOrder('priority')">Priority {{arrow('priority')}}</a></th>
+            <th><a (click)="toggleSortOrder('expTime')">Expected Time {{arrow('expTime')}}</a></th>
+            <th><a (click)="toggleSortOrder('duration')">Duration {{arrow('duration')}}</a></th>
+            <th><a (click)="toggleSortOrder('percentCompleted')">% Completed {{arrow('duration')}}</a></th>
+            <th>Progress</th>
+            <th colspan="2">More Actions</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <tr *ngFor="let task of tasks$ | async">
-        <td>{{ task.TaskTitle }}</td>
-        <td>{{ task.TaskDateStarted | date: 'full' }}</td>
-        <td>{{ task.TaskStatus }}</td>
-        <td>{{ task.TaskPriority }}</td>
-        <td>{{ task.TaskExpectedTime }}</td>
-        <td>{{ task.TaskDuration }}</td>
-        <td>
-          <ngb-progressbar type="info" [striped]="true" [value]="(100*task.TaskDuration/task.TaskExpectedTime).toFixed(0)">
-          </ngb-progressbar>
-        </td>
-        <td><a [routerLink]="['/edit', task._id]" class="btn btn-primary">Edit</a></td>
-        <td><a (click)="deleteTask(task._id)" class="btn btn-danger">Delete</a></td>
-      </tr>
-    </tbody>
-  </table>
+        <tbody>
+          <tr *ngFor="let task of tasks$ | async;">
+            <td>{{ task.TaskTitle }}</td>
+            <td>{{ task.TaskDateStarted | date:'mediumDate':'+0900' }}</td>
+            <td>{{ task.TaskStatus }}</td>
+            <td>{{ task.TaskPriority }}</td>
+            <td>{{ task.TaskExpectedTime }}</td>
+            <td>{{ task.TaskDuration }}</td>
+            <td>
+              <span>{{(100*task.TaskDuration/task.TaskExpectedTime).toFixed(0)}}</span>
+            </td>
+            <td>
+              <ngb-progressbar type="info" [striped]="true" [value]="(100*task.TaskDuration/task.TaskExpectedTime).toFixed(0)">
+              </ngb-progressbar>
+            </td>
+            <td><a [routerLink]="['/edit', task._id]" class="btn btn-primary">Edit</a></td>
+            <td><a (click)="deleteTask(task._id)" class="btn btn-danger">Delete</a></td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { TasksService } from '../tasks.service';
 
@@ -8,9 +9,9 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task-add.component.html',
   styleUrls: ['./task-add.component.scss']
 })
-export class TaskAddComponent implements OnInit {
+export class TaskAddComponent {
   ngTaskAddForm: FormGroup;
-  constructor(private fb: FormBuilder, private ts: TasksService) {
+  constructor(private fb: FormBuilder, private router: Router, private ts: TasksService) {
     this.createForm();
   }
 
@@ -25,10 +26,8 @@ export class TaskAddComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
   addTask(TaskTitle, TaskStatus, TaskDateStarted, TaskExpectedTime, TaskDuration, TaskPriority) {
     this.ts.addTask(TaskTitle, TaskStatus, TaskDateStarted, TaskExpectedTime, TaskDuration, TaskPriority);
+    this.router.navigate(['tasks']);
   }
 }
